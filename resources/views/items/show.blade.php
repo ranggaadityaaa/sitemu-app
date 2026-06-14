@@ -68,17 +68,18 @@
             @endif
         </div>
 
-        {{-- Form Klaim --}}
-        @if(auth()->id() != $item->user_id && $item->status == 'open')
+        {{-- Form Klaim: hanya untuk laporan DITEMUKAN --}}
+        @if(auth()->id() != $item->user_id && $item->status == 'open' && $item->type == 'found')
         <div class="bg-white rounded-xl shadow p-6 mb-6">
             <h3 class="font-bold text-lg mb-3">
-                <i class="fa-solid fa-paper-plane mr-1 text-blue-500"></i> Klaim Barang Ini
+                <i class="fa-solid fa-paper-plane mr-1 text-blue-500"></i> Klaim Ini Barang Saya!
             </h3>
+            <p class="text-gray-500 text-sm mb-3">Jelaskan ciri-ciri barang lo untuk membuktikan ini milik lo.</p>
             <form action="{{ route('claims.store', $item) }}" method="POST">
                 @csrf
                 <textarea name="message" rows="3" required
                     class="w-full border rounded-lg px-3 py-2 mb-3"
-                    placeholder="Jelaskan kenapa ini barang lo / kenapa lo yang nemuin..."></textarea>
+                    placeholder="Contoh: Dompet warna hitam, ada foto keluarga di dalamnya, dan kartu ATM BCA..."></textarea>
                 <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
                     <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Klaim
                 </button>
@@ -86,11 +87,32 @@
         </div>
         @endif
 
-        {{-- Daftar Klaim --}}
+        {{-- Form Info: hanya untuk laporan HILANG --}}
+        @if(auth()->id() != $item->user_id && $item->status == 'open' && $item->type == 'lost')
+        <div class="bg-white rounded-xl shadow p-6 mb-6">
+            <h3 class="font-bold text-lg mb-3">
+                <i class="fa-solid fa-lightbulb mr-1 text-yellow-500"></i> Kasih Info Temuan
+            </h3>
+            <p class="text-gray-500 text-sm mb-3">Lo nemuin barang ini? Kasih tau pemiliknya!</p>
+            <form action="{{ route('claims.store', $item) }}" method="POST">
+                @csrf
+                <textarea name="message" rows="3" required
+                    class="w-full border rounded-lg px-3 py-2 mb-3"
+                    placeholder="Contoh: Gw nemuin barang ini di kantin lantai 2, sekarang ada di pos satpam..."></textarea>
+                <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600">
+                    <i class="fa-solid fa-lightbulb mr-1"></i> Kirim Info
+                </button>
+            </form>
+        </div>
+        @endif
+
+        {{-- Daftar Klaim/Info (hanya pemilik yang lihat) --}}
         @if(auth()->id() == $item->user_id && $claims->count() > 0)
         <div class="bg-white rounded-xl shadow p-6">
             <h3 class="font-bold text-lg mb-4">
-                <i class="fa-solid fa-inbox mr-1 text-blue-500"></i> Daftar Klaim ({{ $claims->count() }})
+                <i class="fa-solid fa-inbox mr-1 text-blue-500"></i>
+                {{ $item->type == 'found' ? 'Daftar Klaim' : 'Daftar Info Temuan' }}
+                ({{ $claims->count() }})
             </h3>
             @foreach($claims as $claim)
             <div class="border rounded-lg p-4 mb-3">
@@ -110,7 +132,8 @@
                     <form action="{{ route('claims.approve', $claim) }}" method="POST">
                         @csrf
                         <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
-                            <i class="fa-solid fa-check mr-1"></i> Setuju
+                            <i class="fa-solid fa-check mr-1"></i>
+                            {{ $item->type == 'found' ? 'Setuju, Ini Barang Saya' : 'Info Berguna!' }}
                         </button>
                     </form>
                     <form action="{{ route('claims.reject', $claim) }}" method="POST">
