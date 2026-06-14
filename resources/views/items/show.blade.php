@@ -74,12 +74,11 @@
             <h3 class="font-bold text-lg mb-3">
                 <i class="fa-solid fa-paper-plane mr-1 text-blue-500"></i> Klaim Ini Barang Saya!
             </h3>
-            <p class="text-gray-500 text-sm mb-3">Jelaskan ciri-ciri barang lo untuk membuktikan ini milik lo.</p>
             <form action="{{ route('claims.store', $item) }}" method="POST">
                 @csrf
                 <textarea name="message" rows="3" required
                     class="w-full border rounded-lg px-3 py-2 mb-3"
-                    placeholder="Contoh: Dompet warna hitam, ada foto keluarga di dalamnya, dan kartu ATM BCA..."></textarea>
+                    placeholder=""></textarea>
                 <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
                     <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Klaim
                 </button>
@@ -93,12 +92,11 @@
             <h3 class="font-bold text-lg mb-3">
                 <i class="fa-solid fa-lightbulb mr-1 text-yellow-500"></i> Kasih Info Temuan
             </h3>
-            <p class="text-gray-500 text-sm mb-3">Lo nemuin barang ini? Kasih tau pemiliknya!</p>
             <form action="{{ route('claims.store', $item) }}" method="POST">
                 @csrf
                 <textarea name="message" rows="3" required
                     class="w-full border rounded-lg px-3 py-2 mb-3"
-                    placeholder="Contoh: Gw nemuin barang ini di kantin lantai 2, sekarang ada di pos satpam..."></textarea>
+                    placeholder=""></textarea>
                 <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600">
                     <i class="fa-solid fa-lightbulb mr-1"></i> Kirim Info
                 </button>
