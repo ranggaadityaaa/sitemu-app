@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight pl-2">
-            <i class="fa-solid fa-crown mr-1 text-yellow-500"></i> Admin Dashboard
-        </h2>
-    </x-slot>
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight pl-2">
+        Admin Dashboard
+    </h2>
+</x-slot>
 
     <div class="py-6 max-w-7xl mx-auto px-4">
 
