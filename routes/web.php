@@ -3,6 +3,7 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ClaimController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return redirect()->route('items.index');
@@ -12,6 +13,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return redirect()->route('items.index');
     })->name('dashboard');
+    Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::delete('/items/{item}', [AdminController::class, 'deleteItem'])->name('admin.items.delete');
+    });
 
     // Tambah ini
     Route::get('/profile', function () {
@@ -24,4 +29,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/claims/{claim}/reject', [ClaimController::class, 'reject'])->name('claims.reject');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
