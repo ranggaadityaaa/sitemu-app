@@ -9,19 +9,23 @@ use Illuminate\Http\Request;
 class ClaimController extends Controller
 {
     public function store(Request $request, Item $item)
-    {
-        $request->validate([
-            'message' => 'required|string|min:10',
-        ]);
+{
+    $request->validate([
+        'message' => 'required|string|min:10',
+    ]);
 
-        Claim::create([
-            'item_id' => $item->id,
-            'user_id' => auth()->id(),
-            'message' => $request->message,
-        ]);
+    Claim::create([
+        'item_id' => $item->id,
+        'user_id' => auth()->id(),
+        'message' => $request->message,
+    ]);
 
-        return back()->with('success', 'Klaim berhasil dikirim! Tunggu konfirmasi pemilik.');
-    }
+    $pesan = $item->type == 'found'
+        ? 'Klaim berhasil dikirim! Tunggu konfirmasi pemilik.'
+        : 'Info temuan berhasil dikirim! Terima kasih sudah membantu.';
+
+    return back()->with('success', $pesan);
+}
 
     public function approve(Claim $claim)
     {
