@@ -2,6 +2,12 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @if(session('banned'))
+    <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4 text-sm">
+        <i class="fa-solid fa-ban mr-1"></i> {{ session('banned') }}
+    </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

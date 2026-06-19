@@ -8,9 +8,9 @@
     <div class="py-6 max-w-7xl mx-auto px-4">
 
         @if(session('success'))
-            <div class="bg-green-100 text-green-700 px-4 py-3 rounded mb-4">
-                {{ session('success') }}
-            </div>
+        <div class="bg-green-100 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
         @endif
 
         {{-- Statistik --}}
@@ -30,6 +30,11 @@
             <div class="bg-purple-500 text-white rounded-xl p-4 text-center shadow">
                 <p class="text-3xl font-bold">{{ $totalUsers }}</p>
                 <p class="text-sm mt-1">Total User</p>
+            </div>
+            <div class="flex justify-end mb-4">
+                <a href="{{ route('admin.users') }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700">
+                    <i class="fa-solid fa-users mr-1"></i> Kelola User
+                </a>
             </div>
         </div>
 
@@ -62,7 +67,7 @@
                         </td>
                         <td class="px-4 py-3">
                             <form action="{{ route('admin.items.delete', $item) }}" method="POST"
-                                  onsubmit="return confirm('Hapus laporan ini?')">
+                                onsubmit="return confirm('Hapus laporan ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:underline text-xs">
