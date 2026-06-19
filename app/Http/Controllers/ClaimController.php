@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Claim;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Events\NewClaimNotification;
 
 class ClaimController extends Controller
 {
@@ -14,11 +15,13 @@ class ClaimController extends Controller
         'message' => 'required|string|min:10',
     ]);
 
-    Claim::create([
+    $claim = Claim::create([
         'item_id' => $item->id,
         'user_id' => auth()->id(),
         'message' => $request->message,
     ]);
+
+    broadcast(new NewClaimNotification($claim, $item->user_id, $item->title))->toOthers();
 
     $pesan = $item->type == 'found'
         ? 'Klaim berhasil dikirim! Tunggu konfirmasi pemilik.'

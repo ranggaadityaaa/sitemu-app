@@ -4,10 +4,13 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 
 Route::get('/', function () {
     return redirect()->route('items.index');
 });
+
+Broadcast::routes(['middleware' => ['auth']]);
 
 Route::middleware(['auth', 'banned'])->group(function () {
     Route::get('/dashboard', function () {
