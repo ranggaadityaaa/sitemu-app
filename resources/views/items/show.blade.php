@@ -90,7 +90,7 @@
         @if(auth()->id() != $item->user_id && $item->status == 'open' && $item->type == 'lost')
         <div class="bg-white rounded-xl shadow p-6 mb-6">
             <h3 class="font-bold text-lg mb-3">
-                <i class="fa-solid fa-lightbulb mr-1 text-yellow-500"></i> Kasih Info Temuan
+                <i class="fa-solid fa-paper-plane mr-1 text-yellow-500"></i> Kasih Info Temuan
             </h3>
             <form action="{{ route('claims.store', $item) }}" method="POST">
                 @csrf
@@ -98,7 +98,7 @@
                     class="w-full border rounded-lg px-3 py-2 mb-3"
                     placeholder=""></textarea>
                 <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600">
-                    <i class="fa-solid fa-lightbulb mr-1"></i> Kirim Info
+                    <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Info
                 </button>
             </form>
         </div>
