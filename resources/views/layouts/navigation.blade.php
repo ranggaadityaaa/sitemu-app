@@ -29,15 +29,15 @@
                     <i class="fa-solid fa-plus mr-1"></i> Buat Laporan
                 </a>
             </div>
-            @if(auth()->user()->role == 'admin')
-            <a href="{{ route('admin.index') }}"
-                class="bg-yellow-400 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-yellow-500 transition shadow">
-                👑 Admin
-            </a>
-            @endif
 
             {{-- User Dropdown --}}
             <div class="flex items-center gap-3">
+                @if(auth()->user()->role == 'admin')
+                <a href="{{ route('admin.index') }}"
+                    class="bg-yellow-400 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-yellow-500 transition shadow">
+                        Admin
+                </a>
+                @endif
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
                         class="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-full transition">
