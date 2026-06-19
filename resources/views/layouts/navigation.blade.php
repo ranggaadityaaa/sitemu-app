@@ -31,12 +31,7 @@
             </div>
 
             {{-- Notification Bell --}}
-            <div class="relative">
-                <button class="text-white p-2 hover:bg-white/20 rounded-full transition relative">
-                    <i class="fa-solid fa-bell"></i>
-                    <span id="notif-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">!</span>
-                </button>
-            </div>
+            
 
             {{-- User Dropdown --}}
             <div class="flex items-center gap-3">
