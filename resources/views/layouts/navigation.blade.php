@@ -80,7 +80,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (window.Echo) {
-                window.Echo.private('notifications.{{ auth()->id() }}')
+                window.Echo.channel('notifications.{{ auth()->id() }}')
                     .listen('.NewClaimNotification', (e) => {
                         const badge = document.getElementById('notif-badge');
                         if (badge) badge.classList.remove('hidden');
@@ -88,9 +88,9 @@
                         const toast = document.createElement('div');
                         toast.className = 'fixed top-20 right-4 bg-white shadow-lg rounded-lg p-4 max-w-sm z-50 border-l-4 border-blue-500';
                         toast.innerHTML = `
-                    <p class="text-sm font-medium text-gray-800">${e.message}</p>
-                    <a href="/items/${e.item_id}" class="text-blue-500 text-xs hover:underline">Lihat detail →</a>
-                `;
+            <p class="text-sm font-medium text-gray-800">${e.message}</p>
+            <a href="/items/${e.item_id}" class="text-blue-500 text-xs hover:underline">Lihat detail →</a>
+        `;
                         document.body.appendChild(toast);
 
                         setTimeout(() => toast.remove(), 5000);

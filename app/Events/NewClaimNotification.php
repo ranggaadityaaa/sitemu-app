@@ -24,11 +24,11 @@ class NewClaimNotification implements ShouldBroadcast
     }
 
     public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('notifications.' . $this->itemOwnerId),
-        ];
-    }
+{
+    return [
+        new \Illuminate\Broadcasting\Channel('notifications.' . $this->itemOwnerId),
+    ];
+}
 
     public function broadcastWith(): array
     {
