@@ -7,8 +7,6 @@ Alpine.start();
 
 window.Pusher = Pusher;
 
-const token = document.querySelector('meta[name="csrf-token"]');
-
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
@@ -17,7 +15,7 @@ window.Echo = new Echo({
     authEndpoint: '/broadcasting/auth',
     auth: {
         headers: {
-            'X-CSRF-TOKEN': token ? token.getAttribute('content') : '',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
         },
     },
 });
